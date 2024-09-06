@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Stamble</title>
+	<link rel="shortcut icon" href="images/STMBL.png">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+	<!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<style type="text/css">
+	.importante {
+            background-color: gold;
+            font-weight: bold;
+        }
+
+    .timer-display{
+    	font-size: 2rem;
+    	font-weight: bold;
+    	color: white;
+    }
+</style>
+<body class="bg-dark">
+
+<div class="container mt-5 text-center">
+	<div class="row">
+		<div class="col-sm-6">
+			<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+		</div>
+		<div class="col-sm-6 mt-5">
+			<h1 style="font-family:Pixelify Sans, sans-serif; color: white;">Stamble.com.br</h1>
+		</div>
+	</div>
+</div>
+<div class="container mt-5">
+    <h1 class="text-center mb-4" style=" color: white; font-family:Pixelify Sans, sans-serif;">Lista de Tarefas</h1>
+
+    <!-- Campo de entrada e botão de adicionar -->
+    <div class="input-group mb-3" style="font-family: Pixelify Sans;">
+      <input type="text" id="novaTarefa" class="form-control" placeholder="Digite uma nova tarefa">
+      <button class="btn btn-primary" id="adicionarTarefa" type="button"><i class="fa-solid fa-plus"></i></button>
+    </div>
+
+    <!-- Lista de tarefas -->
+    <ul class="list-group" id="listaDeTarefas" style="font-family: Pixelify Sans;">
+      <!-- As tarefas aparecerão aqui -->
+    </ul>
+  </div>
+		</div>
+	</div>
+</div>	
+
+<div class="container mt-2 text-center">
+	<div class="row">
+		<div class="col-sm-6">
+			<h1 class="text-center mb-4" style="color: white; font-family:Pixelify Sans;">Timer</h1>
+			<div class="timer-display" id="timerDisplay" style="font-family:Pixelify Sans;">00:00</div>
+		<div class="input-group mb-3 mt-5" style="font-family:Pixelify Sans;">
+        	<input type="number" id="timerInput" class="form-control" placeholder="Digite o tempo em segundos" min="1">
+        	<button class="btn btn-primary" id="startTimer"><i class="fa-solid fa-play"></i></button>
+        	<button class="btn btn-warning" id="pauseTimer"><i class="fa-solid fa-pause"></i></button>
+        	<button class="btn btn-danger" id="resetTimer"><i class="fa-solid fa-stop"></i></button>
+    	</div>
+	</div>
+
+<footer class="bg-dark text-center text-white mt-5">
+  <div class="container p-4">
+    <section class="mb-4">
+      <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/alissonreisdev/" role="button"><i class="fab fa-instagram"></i></a>
+      <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/alisson-dos-reis-994549260/" role="button"><i class="fab fa-linkedin-in"></i></a>
+      <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/AlissonReis377" role="button"><i class="fab fa-github"></i></a>
+    </section>
+    
+    <section class="mb-4">
+      <p>
+        Stamble é um projeto desenvolvido por um estudante de programação
+      </p>
+    </section>
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2024 Copyright:
+    <a class="text-white" href="">Alisson Reis</a>
+  </div>
+</footer>
+
+<script>
+    document.getElementById('adicionarTarefa').addEventListener('click', function() {
+      const tarefaTexto = document.getElementById('novaTarefa').value;
+      if (tarefaTexto !== '') {
+        const novaTarefa = document.createElement('li');
+        novaTarefa.className = 'list-group-item d-flex justify-content-between align-items-center';
+        novaTarefa.textContent = tarefaTexto;
+
+        const botaoImportante = document.createElement('button');
+        botaoImportante.className = 'btn btn-warning btn-sm me-2';
+        botaoImportante.textContent = '📌';
+        botaoImportante.onclick = function() {
+          this.parentElement.classList.toggle('importante');
+          if (this.parentElement.classList.contains('importante')) {
+            document.getElementById('listaDeTarefas').prepend(this.parentElement);
+          }
+        };
+
+        const botaoRemover = document.createElement('button');
+        botaoRemover.className = 'btn btn-danger btn-sm';
+        botaoRemover.textContent = '-';
+        botaoRemover.onclick = function() {
+          this.parentElement.remove();
+        };
+
+        novaTarefa.appendChild(botaoImportante);
+        novaTarefa.appendChild(botaoRemover);
+        document.getElementById('listaDeTarefas').appendChild(novaTarefa);
+        document.getElementById('novaTarefa').value = '';
+      }
+
+    });
+</script>
+<script>
+    let timerInterval;
+    let timeRemaining;
+    let isPaused = false;
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+    }
+
+    document.getElementById('startTimer').addEventListener('click', function() {
+        const input = document.getElementById('timerInput').value;
+        if (!isPaused) {
+            timeRemaining = parseInt(input, 10);
+        }
+        if (timeRemaining > 0) {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(function() {
+                if (timeRemaining > 0) {
+                    document.getElementById('timerDisplay').textContent = formatTime(timeRemaining);
+                    timeRemaining--;
+                } else {
+                    clearInterval(timerInterval);
+                }
+            }, 1000);
+            isPaused = false;
+        }
+    });
+
+    document.getElementById('pauseTimer').addEventListener('click', function() {
+        clearInterval(timerInterval);
+        isPaused = true;
+    });
+
+    document.getElementById('resetTimer').addEventListener('click', function() {
+        clearInterval(timerInterval);
+        timeRemaining = 0;
+        document.getElementById('timerDisplay').textContent = '00:00';
+        document.getElementById('timerInput').value = '';
+        isPaused = false;
+    });
+</script>
+</body>
+</html>
